@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PopKaChiu</title>
+    <link rel="icon" href="https://cdn.discordapp.com/attachments/1088105765283299378/1088106038533824572/image.png?ex=656749b7&is=6554d4b7&hm=5b393e9b7ec2183f4bfff15c5565de8459b0d755161c1451a06689587f1d2415&">
+
+    <script>
+        // Preload images and store them in an array
+        var preloadedImages = [];
+        var totalPhotos = 11;
+
+        for (var i = 0; i < totalPhotos; i++) {
+            var img = new Image();
+            img.src = "https://my-aws-figure.s3.amazonaws.com/IMG000" + i.toString().padStart(2, '0') + ".bmp";
+            preloadedImages.push(img);
+        }
+    </script>
+</head>
+<body>
+    <h1>11177035 AWS Final - PopKaChiu</h1>
+    <p>IP Supported by: {{ ip }}</p>
+
+    <form id="user-info-form">
+        <label for="user-id">User ID:</label>
+        <input type="text" id="user-id" name="user-id">
+
+        <div id="photo-container">
+            <img id="photo" src="https://my-aws-figure.s3.amazonaws.com/IMG00000.bmp" alt="Photo">
+        </div>
+        <p id="click-count">Click Count: 0</p>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Sum</th>
+                </tr>
+            </thead>
+            <tbody id="data-table-body">
+                <!-- Data will be inserted here dynamically -->
+            </tbody>
+        </table>
+    </form>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script> 
+
+    <script>
+        var currentPhoto = 0;
+        var clickCount = 0;
+		var clicksInLast5Seconds = 0;
+		
+        var photoElement = document.getElementById('photo');
+        var clickCountElement = document.getElementById('click-count');
+
+        // Function to handle the click event
+        function handleClick() {
+            currentPhoto = (currentPhoto + 1) % totalPhotos;
+
+            if (currentPhoto === 4 || currentPhoto === 0) {
+                clickCount++;
+				clicksInLast5Seconds++;
+            }
+
+            photoElement.src = preloadedImages[currentPhoto].src;
+
+            clickCountElement.textContent = "Click Count: " + clickCount;
+        }
+
+        // Add click event listener to the photo element
+        photoElement.addEventListener('click', handleClick);
+		
+		// Function to display clicks in the last 5 seconds
+		function displayClicksInLast5Seconds() {
+			console.log("Clicks in the last 5 seconds: " + clicksInLast5Seconds);
+			var userIdInput = document.getElementById('user-id');
+			var userIdValue = userIdInput.value;
+
+			$.ajax({  
+                type: 'GET',  
+                url: '/update',  
+                data: 	{
+						ID: userIdValue,
+						UpdateCount: clicksInLast5Seconds,
+						},
+                crossDomain: true,
+                contentType: 'application/json; charset=utf-8',  
+                dataType: 'text',  
+                success: function (response) {  
+                    console.log(response);  
+                    // You can do anything you want.
+                }  
+              });  
+			clicksInLast5Seconds = 0;  // Reset clicks for the next 5 seconds
+		}
+
+		// Call the displayClicksInLast5Seconds function every 5 seconds
+		setInterval(displayClicksInLast5Seconds, 5000);
+    </script>
+
+
+<script>
+
+
+    // Function to periodically fetch data from the backend
+    function fetchData() {
+        fetch('/get_data_popkachiu')
+            .then(response => response.json())
+            .then(data => {
+                console.log('Data received:', data);
+
+                const entries = Object.entries(data);
+                var tableBody = document.getElementById('data-table-body');
+                tableBody.innerHTML = '';
+                entries.forEach(([key, value]) => {
+                    console.log(`Key: ${key}, Value: ${value}`);
+                    var row = `<tr>
+                                   <td>${key}</td>
+                                   <td>${value}</td>
+                               </tr>`;
+                    tableBody.innerHTML += row;
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    }
+
+    // Fetch data initially and then set an interval to fetch data every 15 seconds
+    fetchData();
+    setInterval(fetchData, 5000);
+</script>
+
+
+<script>
+console.log(`
+   /\\_/\\
+  ( o.o )
+   > ^ <
+`);
+
+console.log(`
+  永無Bug
+
+  〇--〇
+   │  │
+   │  │
+   ─  ─
+    人
+`);
+
+console.log(`
+        / \\       
+      (   )      
+      (o o)_____
+      |  ∆  ∆  |
+      |   ____|
+     /             \\
+    /  /| .  . \\ \\
+   /  / |      | \\ \\
+  / /   |  ∆  ∆  |  \\ \\
+ / /    |______|   \\ \\
+/ /                 \\ \\
+`);
+
+console.log(`
+     / \\__
+    (    @\\___
+    /         O
+  /   (_____/
+ /_____/   U
+`);
+
+
+console.log(`
+          \\        /\\
+           )======(
+          /        \\
+         /          \\
+        (            )
+       (   O      O   )
+       )            (
+      (    )  (    )
+      (   (    )   )
+`);
+
+console.log(`
+　　 ／＞　 フ
+　　 | 　_　_| 
+　 ／ヽ ミ＿xノ 
+／　　　　 |
+|　　／￣| 
+|　　(￣ヽ＿_ヽ_)_)
+＼　　 | _,(､_, )__)
+`);
+
+</script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+(save-restriction
+    ;; vladimir@cs.ualberta.ca 30-Jul-1997: skip ` in
+    ;; `variable' so that the value is returned, not the
+    ;; name
+    (if (and ignore-quotes      
+             (eq (following-char) ?)
+        )
+        (forward-char))
+    (narrow-to-region (point-min) opoint)
+    (setq expr (read (current-buffer)))
+    ;; If it's an (interactive ...) form, it's more
+    ;; useful to show how an interactive call would
+    ;; use it.
+    (and (consp expr)
+         (eq (car expr) 'interactive)
+         (setq expr
+         (list 'call-interactively
+         (list 'quote
+         (list 'lambda
+               '(&rest args)
+               expr
+               'args)))))
+    expr)
+
+
+
+
+
+
+
+
+( save-restriction
+  ( if
+    ( and
+      ignore-quotes
+      ( eq
+        ( following-char
+        )
+        ?
+      )
+    )
+    ( forward-char
+    )
+  )
+  ( narrow-to-region
+    ( point-min
+    )
+    opoint
+  )
+  ( setq
+    expr
+    ( read
+      ( current-buffer
+      )
+    )
+  )
+  ( and
+    ( consp
+      expr
+    )
+    ( eq
+      ( car
+        expr
+      )
+      ( quote
+        interactive
+      )
+    )
+    ( setq
+      expr
+      ( list
+        ( quote
+          call-interactively
+        )
+        ( list
+          ( quote
+            quote
+          )
+          ( list
+            ( quote
+              lambda
+            )
+            ( quote
+              ( &rest
+                args
+              )
+            )
+            expr
+            ( quote
+              args
+            )
+          )
+        )
+      )
+    )
+  )
+  expr
+)

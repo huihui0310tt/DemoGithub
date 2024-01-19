@@ -1,0 +1,33 @@
+> ''(''('(cons 'a b) (c ())) (d e))
+
+
+( quote
+  ( quote
+    ( ( quote
+        ( quote
+          ( ( quote
+              ( cons
+                ( quote
+                  a
+                )
+                ( quote
+                  b
+                )
+              )
+            )
+            ( c
+              ( quote
+                ( exit
+                )
+              )
+            )
+          )
+        )
+      )
+      ( d
+        e
+      )
+    )
+  )
+)
+

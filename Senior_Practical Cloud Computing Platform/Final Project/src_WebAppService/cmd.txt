@@ -1,0 +1,6 @@
+docker image build -t dockerfile_final .
+docker run -d -p 80:5000 --name dockerfile_final dockerfile_final
+
+
+https://docs.microsoft.com/zh-tw/azure/developer/python/tutorial-deploy-containers-02
+WEBSITES_PORT 5000

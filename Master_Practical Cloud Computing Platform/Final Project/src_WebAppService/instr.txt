@@ -1,0 +1,14 @@
+docker image build -t 11177035acr.azurecr.io/final_project:0101 .
+docker run -d -p 5000:5000 --name flask 11177035acr.azurecr.io/final_project:0101
+
+docker push 11177035acr.azurecr.io/final_project:0101
+
+
+
+
+
+
+
+docker image build -t 11177035acr.azurecr.io/final_project:0101 .
+docker push 11177035acr.azurecr.io/final_project:0101
+

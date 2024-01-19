@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gamble Login Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<link rel="icon" href="{{ url_for('static', filename='online-gambling.png') }}">
+</head>
+
+<style>
+	.flex{
+    display:flex;
+    width:600px;
+    height:600px;
+  }
+
+  .flex div{
+    margin:auto;
+  }
+</style>
+
+<body>
+	
+
+	<div class="flex">
+		<div class="container-fluid">
+			<div class="container-fluid">
+			<h1 class="text-center align-middle">Login Page</h1>
+			<p class="text-center align-middle">Hi, Please Enter your name or ID</p>
+		</div>
+		<div class="container">
+			<form action='index' method="POST">
+				<div class="input-group mb-3">
+					<input type="text" class="form-control" name="user" placeholder="Name here" aria-label="Name here" aria-describedby="button-addon2">
+					<button class="btn btn-outline-secondary" type="submit" name="send" id="button-addon2">送出</button>
+				</div>
+			</form>
+		</div>
+		<p class="text-center text-danger">English language is friendly in this Project</p>
+		<p class="text-center text-danger">UTF-8 and BIG5 encode is less support here</p>
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+	<script>
+		
+		var box = document.querySelector('.flex') ;
+		
+		var screenWidth = window.innerWidth;
+		var screenHeight = window.innerHeight;
+
+		var fix_height = screenHeight + 'px' ;
+		var fix_width = screenWidth + 'px' ;
+
+		box.style.width = fix_width ;
+		box.style.height = fix_height ;
+	</script>
+
+	
+	
+</body>
+
+</html>

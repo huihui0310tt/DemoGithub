@@ -1,0 +1,9 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "",
+    "FUNCTIONS_WORKER_RUNTIME": "python",
+    "10727211functionstorage_STORAGE": "DefaultEndpointsProtocol=https;AccountName=10727211storagefunction;AccountKey=TjWwogu/SyP88UmG6lYktozivFAazS7+HsCfkea88JsZHRJkiC4oTCmcqeXOmi/JpuzFig9V+LdKE6eFMaLynQ==;EndpointSuffix=core.windows.net",
+    "AzureSignalRConnectionString": "Endpoint=https://s10727211signalr.service.signalr.net;AccessKey=REPxqAHE82yrPzWBEMxSHyMLAIuAm/9o2rsfkwDx5UE=;Version=1.0;"
+  }
+}

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Gamble Index</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<link rel="icon" href="{{ url_for('static', filename='online-gambling.png') }}">
+</head>
+
+<style >
+	.flex{
+    display:flex;
+    width:600px;
+    height:600px;
+		/*background: green;*/
+  }
+
+  .flex div{
+    margin:auto;
+  }
+
+	
+</style>
+
+
+<body>
+
+	<div class="flex">
+		<div class="container-fluid">
+			<div class="container-fluid">
+			<h1 class="text-center align-middle">Serverless Gamble ChatRoom</h1>
+			<h2 class="text-center align-middle">Hello,{{name}}</h2>
+			
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div id="Leaderboard">
+						<caption><h2 class="text-center">Leaderboard</h2></caption>
+						<table class="table table-bordered table-hover" id="LeaderboardTable" border="1">
+							<thead>
+								<tr>
+									<th> </th>
+									<th>ID</th>
+									<th>Point</th>
+								</tr>
+							</thead>
+							
+						</table>
+				
+						<script >
+							const api_url = window.location.origin + "/get_cosmosdb";
+							async function getapi(url) {
+								const response = await fetch(url);
+								
+								var cosmosdb_data = await response.json();
+								console.log(cosmosdb_data);
+								show(cosmosdb_data)
+				
+							}
+							getapi(api_url);
+				
+				
+							function show(data) {
+								let tab = 
+									`<thead>
+								<tr>
+									<th> </th>
+									<th>ID</th>
+									<th>Point</th>
+								</tr>
+							</thead><tbody>`;
+								
+								// Loop to access all rows 
+								for (let r of data) {
+									tab += `<tr> 
+									<td>${r.no} </td>
+									<td>${r.id}</td>
+									<td>${r.point}</td>      
+									</tr>`;
+								}
+								tab += `</tbody>` ;
+								// Setting innerHTML as tab variable
+								document.getElementById("LeaderboardTable").innerHTML = tab;
+							}
+				
+						</script>
+						
+					</div>
+				</div>
+
+				<div class="col">
+					<div  id="chatroom">
+						<textarea name="chat_room" cols = 45 rows = 20 id="messages"  readonly class="align-middle"></textarea>
+				
+						<script>
+							window.setInterval(function() {
+							var elem = document.getElementById('messages');
+							elem.scrollTop = elem.scrollHeight;
+							}, 1000);
+						</script>
+
+						<form id='chat-form' method="POST">
+							<input name="userid" type="hidden" value={{name}} id="text_id"  />
+							<h3></h3>
+							<input class="form-control" list="browserid" id="text_content" placeholder="Type message">
+							<datalist id="browserid">
+								<option value="!init">
+								<option value="!point">
+								<option value="!gamble">
+							</datalist>
+							<h3></h3>
+							<button class="btn btn-primary" type="submit" id="button-addon2">送出</button>
+						</form>
+								
+					</div>
+				</div>
+
+
+				<div class="col">
+					<table class="table table-bordered table-hover" border='1'>
+						<thead>
+							<tr>
+								<th scope="col">Instruction</th>
+								<th scope="col">Explain</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td >{All}</td>
+								<td>Normal Chat</td>
+							</tr>
+							<tr>
+								<td>!init</td>
+								<td>Initial your point to 1000</td>
+							</tr>
+							<tr>
+								<td>!point</td>
+								<td>Watch out your point</td>
+							</tr>
+							<tr>
+								<td>!gamble 1</td>
+								<td>Gamble for 1 point</td>
+							</tr>
+							<tr>
+								<td>!gamble 1%</td>
+								<td>Gamble 1% of your points</td>
+							</tr>
+							<tr>
+								<td>!gamble All</td>
+								<td>Gamble all of your points</td>
+							</tr>
+						</tbody>
+						
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+		
+		
+
+	
+
+
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+	<script>
+		
+		var box = document.querySelector('.flex') ;
+		
+		var screenWidth = window.innerWidth;
+		var screenHeight = window.innerHeight;
+
+		var fix_height = screenHeight + 'px' ;
+		var fix_width = screenWidth + 'px' ;
+
+		box.style.width = fix_width ;
+		box.style.height = fix_height ;
+	</script>
+	
+	<!-- <div id="ID2"> </div> -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.7/signalr.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js" integrity="sha256-chlNFSVx3TdcQ2Xlw7SvnbLAavAQLO0Y/LBiWX04viY=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js" integrity="sha256-S1J4GVHHDMiirir9qsXWc8ZWw74PHHafpsHp5PXtjTs=" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@aspnet/signalr@1.1.0/dist/browser/signalr.js"></script>
+	<script async>
+	  var myArray = [];
+
+	  let messages = document.querySelector('#messages');
+	  // const apiBaseUrl = window.location.origin;
+	  const apiBaseUrl_serverless = 'https://10727211-signalrtrigger.azurewebsites.net'
+
+	//   messages.innerHTML += 1 + "\n" + 1 + "\n" + 1 + "\n" + 1 + "\n" + 1 + "\n" + 1 + "\n" + 1 + "\n" + 1 + "\n" + 1 + "\n" + 1 + "\n" + 1 + "\n" + 1 + "\n" + 1 + "\n" + 1 + "\n" + 1 + "\n" + 1 + "\n" + 1 + "\n" + 1 + "\n" + 1 + "\n" + 1 + "\n" + 1 + "\n" + 1 + "\n" + 1 + "\n" + 1 + "\n" + 1 + "\n" + 1 + "\n"
+
+	  const connection_serverless = new signalR.HubConnectionBuilder()
+		  .withUrl(apiBaseUrl_serverless + '/api')
+		  .configureLogging(signalR.LogLevel.Information)
+		  .build();
+		  connection_serverless.on('newMessage', (message) => {
+		  console.log(message)
+		  messages.innerHTML += message + "\n"
+
+		});
+
+
+
+		console.log(apiBaseUrl_serverless)
+		connection_serverless.start()
+		  .catch(console.error);
+	</script>
+	
+	<script async>
+  
+	    const apiBaseUrl_db = 'https://10727211-cosmosdbtrigger.azurewebsites.net'
+		const connection_db = new signalR.HubConnectionBuilder()
+			.withUrl(apiBaseUrl_db + '/api')
+			.configureLogging(signalR.LogLevel.Information)
+			.build();
+			connection_db.on('newMessage', (message) => {
+			console.log('cosmosdb Trigger!')
+			const api_url = window.location.origin + "/get_cosmosdb";
+			async function getapi(url) {
+				const response = await fetch(url);
+				
+				var cosmosdb_data = await response.json();
+				console.log(cosmosdb_data);
+				show(cosmosdb_data)
+
+			}
+			getapi(api_url);
+
+
+			function show(data) {
+				let tab = 
+					`<caption>Leaderboard</caption>`+
+					`<tr>
+					<th> </th>
+					<th>ID</th>
+					<th>point</th>
+					</tr>`;
+				
+				// Loop to access all rows 
+				for (let r of data) {
+					tab += `<tr> 
+					<td>${r.no} </td>
+					<td>${r.id}</td>
+					<td>${r.point}</td>      
+					</tr>`;
+				}
+				// Setting innerHTML as tab variable
+				document.getElementById("LeaderboardTable").innerHTML = tab;
+			}
+		  });
+  
+  
+  
+		  console.log(apiBaseUrl_db)
+		  connection_db.start()
+			.catch(console.error);
+	</script>
+
+
+	<!--Jquery Cdn -->
+	<script src="https://code.jquery.com/jquery-3.5.1.js"
+	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+	crossorigin="anonymous"></script>
+
+	<script type="text/javascript">
+	$(document).on('submit','#chat-form',function(e)
+					{
+		console.log('hello');
+		e.preventDefault();
+		$.ajax({
+		type:'POST',
+		url:'/index_getdata',
+		data:{
+			chat_name:$("#text_id").val(),
+			chat_content:$("#text_content").val()
+		},
+		success:function()
+		{
+			console.log('saved');
+		}
+		})
+	});
+	</script>
+
+</body>
+
+</html>
