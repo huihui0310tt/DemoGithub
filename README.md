@@ -68,4 +68,5 @@
        + ![#1112-硬體描述語言](./asset/6A5ACD.png) `1112-硬體描述語言`
     +  Practical Cloud Systems
        + ![#1112-雲端系統實務與開發](./asset/6A5ACD.png) `1112-雲端系統實務與開發`
-
+    +  Cloud Computing System
+       + ![#1121-雲端計算系統](./asset/6A5ACD.png) `1121-雲端計算系統`
